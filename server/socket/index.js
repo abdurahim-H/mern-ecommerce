@@ -2,6 +2,9 @@ const socketio = require('socket.io');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
+// Ensure Mongoose models are registered before using mongoose.model('User')
+require('../models/user');
+
 const { ROLES } = require('../constants');
 const keys = require('../config/keys');
 const User = mongoose.model('User');

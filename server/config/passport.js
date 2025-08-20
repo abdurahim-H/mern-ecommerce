@@ -5,6 +5,9 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const mongoose = require('mongoose');
 
+// Ensure User model is registered before passport strategies reference it
+require('../models/user');
+
 const keys = require('./keys');
 const { EMAIL_PROVIDER } = require('../constants');
 
