@@ -10,7 +10,8 @@ Options:
 - Start services (Mongo):
 
 ```bash
-cd /home/abdurahim/Desktop/CODE-RL/mern-ecommerce-fix
+# from the repository root (no absolute path required)
+cd $(git rev-parse --show-toplevel || .)
 ./scripts/setup.sh
 docker compose up -d
 npm run dev
@@ -19,7 +20,7 @@ npm run dev
 2) NO_DB (fast, no database) — for UI and non-DB flows
 
 ```bash
-cd /home/abdurahim/Desktop/CODE-RL/mern-ecommerce-fix
+# from the repository root
 ./scripts/setup.sh
 npm run dev:no-db
 # visit http://localhost:3001/
@@ -29,7 +30,7 @@ npm run dev:no-db
 3) In-memory MongoDB (best-effort; may fail on some OS/distributions)
 
 ```bash
-cd /home/abdurahim/Desktop/CODE-RL/mern-ecommerce-fix
+# from the repository root
 ./scripts/setup.sh
 npm run dev:in-memory
 ```
@@ -40,3 +41,5 @@ Notes
 - `NO_DB` starts the server without connecting to Mongo — routes that require DB will return errors but the server stays up for local dev.
 
 If you want, I can add a single `make dev` or a one-shot script to run the whole flow for new devs.
+
+Quick start: you can now run the whole flow with `./scripts/dev.sh` or `npm run dev:local` from the repo root.
