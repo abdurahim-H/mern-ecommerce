@@ -29,18 +29,20 @@ Prerequisites: Git, Node.js (16+), and Docker installed.
 
 ```bash
 git clone https://github.com/abdurahim-H/mern-ecommerce.git
-cd mern-ecommerce-fix
+cd mern-ecommerce
 ./scripts/setup.sh
 docker compose up -d
 npm run dev
 ```
 
+Client is served at `http://localhost:8080` and API at `http://localhost:3000`.
+
 Other local modes
 -----------------
 - In-memory Mongo (no Docker required but platform-dependent):
-  - `npm run dev:in-memory`
+  - `./scripts/setup.sh && npm run dev:in-memory`
 - NO_DB (UI-only):
-  - `npm run dev:no-db`
+  - `./scripts/setup.sh && npm run dev:no-db`
 
 Health checks & quick verification
 ----------------------------------
@@ -48,6 +50,15 @@ Health checks & quick verification
 - Health: http://localhost:3000/api/health — returns DB connection status
  - Product list (public): http://localhost:3000/api/product/list?sortOrder={"createdAt":-1}&limit=10
  - Quick run: `npm run smoke` executes curl-based health/product/category/contact checks
+
+Stopping
+--------
+Press Ctrl+C in the terminal running `npm run dev` (stops both client and server). If the port is still busy, run `fuser -k 3000/tcp` and/or `docker compose down`.
+
+Troubleshooting
+---------------
+- If `GET /api/health` returns 404 immediately after startup, wait a few seconds for the server to bind, then retry.
+- Ensure `BASE_API_URL=api` and `PORT=3000` in `server/.env` (created by `./scripts/setup.sh`).
 
 Seeding
 -------
