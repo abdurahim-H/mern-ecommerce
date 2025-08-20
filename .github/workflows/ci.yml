@@ -19,5 +19,9 @@ jobs:
           npm ci
           cd client && npm ci
           cd ../server && npm ci
+      - name: Run unit tests (server)
+        run: |
+          cd server
+          npm test --silent
       - name: Run CI smoke
         run: npm run ci:smoke
