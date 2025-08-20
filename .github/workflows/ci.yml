@@ -1,0 +1,23 @@
+name: CI Smoke
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies (root, client, server)
+        run: |
+          npm ci
+          cd client && npm ci
+          cd ../server && npm ci
+      - name: Run CI smoke
+        run: npm run ci:smoke

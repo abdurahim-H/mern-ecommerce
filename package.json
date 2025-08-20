@@ -11,6 +11,7 @@
   "dev:no-db": "cd server && NO_DB=true npm run dev",
   "dev:in-memory": "cd server && USE_IN_MEMORY_DB=true npm run dev",
   "smoke": "bash ./scripts/smoke.sh",
+  "ci:smoke": "bash ./scripts/ci-smoke.sh",
     "postinstall": "npm-run-all --parallel install:*",
     "install:client": "cd client && npm install",
     "install:server": "cd server && npm install",
