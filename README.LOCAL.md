@@ -1,45 +1,53 @@
-Quick local developer setup (self-contained)
-============================================
+## Local development — reproducible setup
 
-This copy (`mern-ecommerce-fix`) includes helpers to run locally with minimal friction.
+This file gives exact, copy-paste commands to get the project running locally in three supported modes. Docker Compose is recommended for reliability; in-memory and NO_DB are available for convenience.
 
-Options:
+Prerequisites
+-------------
+- Git
+- Node.js 16+
+- Docker (recommended) or Node for NO_DB/in-memory modes
 
-1) Docker compose (recommended - full environment)
-
-- Start services (Mongo):
-
+Recommended (Docker)
+---------------------
 ```bash
-# from the repository root (no absolute path required)
-cd $(git rev-parse --show-toplevel || .)
-./scripts/setup.sh
-docker compose up -d
-npm run dev
+# from repo root
+./scripts/setup.sh        # creates server/.env and client/.env with sensible defaults
+docker compose up -d      # start Mongo
+npm run dev               # run client + server locally
 ```
 
-2) NO_DB (fast, no database) — for UI and non-DB flows
-
+Manual seeding (if needed)
 ```bash
-# from the repository root
-./scripts/setup.sh
-npm run dev:no-db
-# visit http://localhost:3001/
-# check DB status: http://localhost:3001/api/health
+cd server
+npm run seed:db admin@example.com admin123
 ```
 
-3) In-memory MongoDB (best-effort; may fail on some OS/distributions)
-
+In-memory Mongo (no Docker)
 ```bash
-# from the repository root
 ./scripts/setup.sh
 npm run dev:in-memory
 ```
 
-Notes
------
-- `USE_IN_MEMORY_DB` uses `mongodb-memory-server` which downloads MongoDB binaries for your platform. On non-standard distros the download may fail; Docker is more reliable.
-- `NO_DB` starts the server without connecting to Mongo — routes that require DB will return errors but the server stays up for local dev.
+NO_DB (UI-only)
+```bash
+./scripts/setup.sh
+npm run dev:no-db
+```
 
-If you want, I can add a single `make dev` or a one-shot script to run the whole flow for new devs.
+Smoke checks
+------------
+- GET http://localhost:3000/api/health  — DB connection state
+- GET http://localhost:3000/api/products — seeded products
+- POST http://localhost:3000/api/contact/add — saves contact even if mail sending fails
 
-Quick start: you can now run the whole flow with `./scripts/dev.sh` or `npm run dev:local` from the repo root.
+Troubleshooting
+---------------
+- If `mongodb-memory-server` fails to download binaries: use Docker Compose or install `mongod`.
+- If API requests 404: ensure `BASE_API_URL` in `server/.env` matches client settings.
+- Missing Mailgun/AWS keys will warn in logs and disable related features; core app will still run.
+
+Recommended additions (optional)
+--------------------------------
+- `scripts/smoke.sh` to run the smoke checks after startup.
+- `npm run dev:local` wrapper that runs setup, docker compose, seed and dev in one step.
