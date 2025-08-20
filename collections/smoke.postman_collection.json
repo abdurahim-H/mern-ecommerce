@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "MERN Ecommerce - Smoke",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{BASE_URL}}/api/health"
+      }
+    },
+    {
+      "name": "Product list (public)",
+      "request": {
+        "method": "GET",
+        "url": "{{BASE_URL}}/api/product/list",
+        "urlEncoded": [
+          { "key": "sortOrder", "value": "{\"createdAt\":-1}" },
+          { "key": "limit", "value": "1" }
+        ]
+      }
+    },
+    {
+      "name": "Category list (public)",
+      "request": {
+        "method": "GET",
+        "url": "{{BASE_URL}}/api/category/list"
+      }
+    },
+    {
+      "name": "Contact add",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Smoke Tester\",\n  \"email\": \"smoke@example.com\",\n  \"message\": \"Hello from smoke test\"\n}"
+        },
+        "url": "{{BASE_URL}}/api/contact/add"
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "key": "BASE_URL", "value": "http://localhost:3000" }
+  ]
+}

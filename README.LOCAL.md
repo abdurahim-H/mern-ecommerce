@@ -41,6 +41,24 @@ Smoke checks
 - GET http://localhost:3000/api/products — seeded products
 - POST http://localhost:3000/api/contact/add — saves contact even if mail sending fails
 
+Automated smoke
+---------------
+Optionally run the curl-based smoke tests after the app is up:
+
+```bash
+npm run smoke
+```
+
+This calls:
+- GET /api/health
+- GET /api/product/list?sortOrder={"createdAt":-1}&limit=1
+- GET /api/category/list
+- POST /api/contact/add
+
+Postman collection
+------------------
+Import `collections/smoke.postman_collection.json` and set `BASE_URL` to your API origin (default http://localhost:3000) to run the same smoke checks manually.
+
 Troubleshooting
 ---------------
 - If `mongodb-memory-server` fails to download binaries: use Docker Compose or install `mongod`.

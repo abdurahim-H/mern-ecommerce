@@ -46,7 +46,8 @@ Health checks & quick verification
 ----------------------------------
 - Root: http://localhost:3000/ (or the `PORT` in `server/.env`) — basic message
 - Health: http://localhost:3000/api/health — returns DB connection status
-- Products: http://localhost:3000/api/products — should return seeded products after seeding
+ - Product list (public): http://localhost:3000/api/product/list?sortOrder={"createdAt":-1}&limit=10
+ - Quick run: `npm run smoke` executes curl-based health/product/category/contact checks
 
 Seeding
 -------
