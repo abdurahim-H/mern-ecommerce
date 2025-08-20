@@ -17,6 +17,12 @@ docker compose up -d      # start Mongo
 npm run dev               # run client + server locally
 ```
 
+If Docker was just installed or you were just added to the docker group, refresh your shell membership first:
+
+```bash
+newgrp docker
+```
+
 Manual seeding (if needed)
 ```bash
 cd server
@@ -38,7 +44,7 @@ npm run dev:no-db
 Smoke checks
 ------------
 - GET http://localhost:3000/api/health  — DB connection state
-- GET http://localhost:3000/api/products — seeded products
+ - GET http://localhost:3000/api/product/list?sortOrder={"createdAt":-1}&limit=1 — seeded products
 - POST http://localhost:3000/api/contact/add — saves contact even if mail sending fails
 
 Automated smoke
